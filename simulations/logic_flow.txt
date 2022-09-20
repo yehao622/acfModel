@@ -1,0 +1,35 @@
+r_req(s): Read request(s)
+w_req(s): Write request(s)
+
+Source NED: generating r_reqs & w_reqs based on parameters in 'Source.ned'
+
+MDS NED: 
+	when r_req arrives, add delay 'mds_rate_r' in 'Server.ned'
+	when w_req arrives, add delay 'mds_rate_w' in 'Server.ned'
+
+split_mtu NED:
+	IF: from MDS module: 
+		when r_req arrives, pass it to network module 'net_channels'
+ 		when w_req arrives, split it into network packges by MTU(defined in 'method.h'). And send them to 'net_channels'
+ 	ELSE: from OST module:
+ 		when r_req arrives, split it into network packges by MTU(defined in 'method.h'). And send them to 'net_channels'
+ 		when w_req arrives, just pass it to network module 'net_channels'
+
+net_channels NED:
+	network channels transfer all data;
+
+split_page NED:
+	IF: from MDS module: 
+		when r_req arrives, split into page size (for cache check later)
+		when w_req arrives, congregate the packages belonging to the same job_id from network, and then split into page size
+	ELSE: from OST module:
+		pass to sink
+		
+OSS NED:
+	when r_req or write packages arrive, pass to 'aggregate'
+
+aggregate NED:
+	congregate data after checking cache(not implemented yet), send to OST Modules
+	
+OST NED:
+	congregate data and send to 'split_mtu' module 

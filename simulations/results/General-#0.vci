@@ -1,0 +1,29 @@
+file 1543104 1663647605                                         
+version 3
+run General-0-20220920-00:19:41-19237
+attr configname General
+attr datetime 20220920-00:19:41
+attr datetimef 20220920-001941
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network System
+attr processid 19237
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config network System
+config sim-time-limit 10s
+
+vector 0 System.sink readThroughput:vector ETV
+attr recordingmode vector
+attr source rThroughput
+attr title "Read throughput distribution"
+0	594 1301684 54 1049123 0.000000484938 0.008858244209 32768 87.194886536935 278.60522306382 7391354.1743687 1667622364.51
+0	1302278 240825 1049155 1238225 0.008858519793 0.010476080647 5906 225.18832808319 225.90966865407 1332001.4556095 300411303.22236
+
